@@ -5,7 +5,6 @@ import numpy as np
 
 sns.set_theme(style="darkgrid")
 plt.style.use("dark_background")
-plt.figure(figsize=(10, 6))
 
 dataset = pd.read_csv("all_seasons.csv")
 
@@ -17,6 +16,7 @@ def convert_cm_to_feet(cm):
 
 
 def height_pdf(dataset: pd.DataFrame):
+    plt.figure(figsize=(10, 6))
     heights = dataset["player_height"]
 
     ax = sns.histplot(heights, bins=20, kde=True, stat="density", alpha=0.7, color="cyan", edgecolor="white")
@@ -36,6 +36,7 @@ def height_pdf(dataset: pd.DataFrame):
 
 
 def weight_pdf(dataset: pd.DataFrame):
+    plt.figure(figsize=(10, 6))
     weights = dataset["player_weight"]
     
     sns.histplot(weights, bins=20, kde=True, stat="density", alpha=0.7, color="cyan", edgecolor="white")
@@ -50,6 +51,7 @@ def weight_pdf(dataset: pd.DataFrame):
 
 
 def pts_to_height(dataset: pd.DataFrame):
+    plt.figure(figsize=(10, 6))
     bins = np.arange(170, 221, 5)
     labels = [f"{b}-{b+4}" for b in bins[:-1]]
     dataset["height_range"] = pd.cut(dataset["player_height"], bins=bins, labels=labels)
@@ -67,6 +69,7 @@ def pts_to_height(dataset: pd.DataFrame):
     plt.tight_layout()
     plt.savefig("avg_points_by_height.png", dpi=300, facecolor="black")
 
-# height_pdf(dataset)
-# weight_pdf(dataset)
+
+height_pdf(dataset)
+weight_pdf(dataset)
 pts_to_height(dataset)
